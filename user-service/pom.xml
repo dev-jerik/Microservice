@@ -1,0 +1,127 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.4.1</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	
+  <groupId>com.tutorial</groupId>
+  <artifactId>user-service</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>user-service</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+    	<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		
+		<!-- https://projectlombok.org/features/all -->
+		<!--  To enable/install lombok on eclipse run the following command: java -jar <lombok_version.jar> -->
+		<!-- 
+			What is Lombok?
+			- Java is a great language but it sometimes gets too verbose for things you have to do in your code for common tasks 
+				or compliancy with some framework practices. These do very often bring no real value to the business side of your programs –
+				 and this is where Lombok is here to make your life happier and yourself more productive.
+			- Source: https://www.baeldung.com/intro-to-project-lombok
+		 -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		
+		<!-- The standard Java libraries fail to provide enough methods for manipulation of its core classes. Apache Commons Lang provides these extra methods. -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+		
+		<!-- Spring Data JPA dependencies -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		
+		<!-- DB dependencies -->
+		<dependency>
+	        <groupId>mysql</groupId>
+	        <artifactId>mysql-connector-java</artifactId>
+	    </dependency>
+	    
+	    <!-- For handling JWT related operations -->
+	    <dependency>
+	    	<groupId>com.auth0</groupId>
+	    	<artifactId>java-jwt</artifactId>
+	    	<version>3.8.0</version>
+	    </dependency>
+	    
+
+		<!-- Test Dependecies -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+  </dependencies>
+  
+  <build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+	
+	<profiles>
+		<profile>
+            <id>dev</id>
+            <activation>
+            	<activeByDefault>true</activeByDefault>
+            </activation>
+            <dependencies>
+            	<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-devtools</artifactId>
+					<optional>true</optional>
+				</dependency>
+            </dependencies>
+            <properties>
+            	<maven.profiles.active>dev</maven.profiles.active>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+            	<maven.profiles.active>prod</maven.profiles.active>
+            </properties>
+        </profile>
+		<profile>
+			<id>no-test</id>
+			<properties>
+				<maven.test.skip>true</maven.test.skip>
+			</properties>
+		</profile>
+    </profiles>
+</project>
